@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <AfterSalesProGrShipping>
+                <name>AfterSalesPro Shipping Module</name>
+                <title>Custom Shipping Module</title>
+                <active>0</active>
+                <fallbackActive>0</fallbackActive>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+                <sallowspecific>0</sallowspecific>
+                <model>AfterSalesProGr\Shipping\Model\Carrier\Custom</model>
+            </AfterSalesProGrShipping>
+        </carriers>
+    </default>
+</config>

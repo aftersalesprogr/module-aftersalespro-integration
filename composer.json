@@ -1,0 +1,36 @@
+{
+  "name": "aftersalesprogr/plugin-aftersalespro-integration",
+  "description":"AfterSalesPro.gr Shipping Module",
+  "keywords": [
+    "magento 2",
+    "aftersalespro",
+    "aftersalespro.gr",
+    "shipping module",
+    "shipping cost calculation"
+  ],
+  "require": {
+    "php": ">=7.4",
+    "guzzlehttp/guzzle": "~7.5"
+  },
+  "type": "magento2-module",
+  "version": "1.0.1",
+  "license": [
+    "Commercial"
+  ],
+  "homepage": "https://www.aftersalespro.gr/",
+  "authors": [
+    {
+      "name": "AfterSalesPro",
+      "email": "info@aftersalespro.gr",
+      "homepage": "https://www.aftersalespro.gr"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "AfterSalesProGr\\Shipping\\": ""
+    }
+  }
+}

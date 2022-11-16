@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <section id="carriers" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <group id="AfterSalesProGrShipping" translate="label" type="text" sortOrder="2" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>AfterSalesPro Shipping Module</label>
+                <field id="aftersalesprogrApiToken"
+                       translate="label"
+                       type="text"
+                       sortOrder="0"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>API Token</label>
+                    <comment><![CDATA[ You can create the API token for you account in the administration panel of your user profile at AfterSalesPro. You can access the page <a href="https://www.aftersalespro.gr/panel/platform">here</a>]]></comment>
+                </field>
+                <field id="active"
+                       translate="label"
+                       type="select"
+                       sortOrder="1"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="freeShippingUpperLimit"
+                       translate="label"
+                       type="text"
+                       sortOrder="4"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Free shipping Limit</label>
+                    <comment><![CDATA[ Free shipping for order value grater than (€) ]]></comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="fallbackActive"
+                       translate="label"
+                       type="select"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="0">
+                    <label>Fallback Enabled</label>
+                    <comment><![CDATA[ With the activation of FallBack, in case of failure, the system will show one shipping option with a flat/fixed cost. If FallBack service is disabled, the system will not show any new shipping method at checkout. ]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="fallbackTitle"
+                       translate="label"
+                       type="text"
+                       sortOrder="11"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Fallback Title</label>
+                    <comment><![CDATA[ Shipping Method Title for the FallBack ]]></comment>
+                </field>
+                <field id="fallbackName"
+                       translate="label"
+                       type="text"
+                       sortOrder="12"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Fallback Method Name</label>
+                    <comment><![CDATA[ Shipping Method Name for the FallBack ]]></comment>
+                </field>
+                <field id="fallbackBasePriceKg"
+                       translate="label"
+                       type="text"
+                       sortOrder="13"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="0">
+                    <label>Fallback Base Price Kg</label>
+                    <comment><![CDATA[ The maximum weight (kg) for which the shipment has a fixed (base) cost ]]></comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="fallbackBasePrice"
+                       translate="label"
+                       type="text"
+                       sortOrder="14"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="0">
+                    <label>Fallback Base Price</label>
+                    <comment><![CDATA[ The fixed shipping cost for order with maximum weight lower or equal with the Fallback Base Price Kg ]]></comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="fallbackPricePerKg"
+                       translate="label"
+                       type="text"
+                       sortOrder="15"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="0">
+                    <label>Fallback Price per extra kg</label>
+                    <comment><![CDATA[ Additional cost per kg ]]></comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="80" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="90" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="91" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="92" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
