@@ -17,11 +17,31 @@ use Psr\Log\LoggerInterface;
 
 class Custom extends AbstractCarrier implements CarrierInterface
 {
+    /**
+     * @var string
+     */
     protected $_code = 'AfterSalesProGrShipping';
+    /**
+     * @var bool
+     */
     protected $_isFixed = true;
+    /**
+     * @var ResultFactory
+     */
     protected $_rateResultFactory;
+    /**
+     * @var MethodFactory
+     */
     protected $_rateMethodFactory;
 
+    /**
+     * @param ScopeConfigInterface $scopeConfig
+     * @param ErrorFactory $rateErrorFactory
+     * @param LoggerInterface $logger
+     * @param ResultFactory $rateResultFactory
+     * @param MethodFactory $rateMethodFactory
+     * @param array $data
+     */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         ErrorFactory $rateErrorFactory,
@@ -35,11 +55,22 @@ class Custom extends AbstractCarrier implements CarrierInterface
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $data);
     }
 
+    /**
+     * Adds method to checkout
+     *
+     * @return array
+     */
     public function getAllowedMethods()
     {
         return [$this->getCarrierCode() => __($this->getConfigData('name'))];
     }
 
+    /**
+     * Collects the rates
+     *
+     * @param RateRequest $request
+     * @return false
+     */
     public function collectRates(RateRequest $request)
     {
         if (!$this->isActive()) {
@@ -53,10 +84,10 @@ class Custom extends AbstractCarrier implements CarrierInterface
         $shipment_price = $request->getPackageValue();
         $result = $this->_rateResultFactory->create();
 
-        $isFreeShipping = $this->getConfigData('freeShippingUpperLimit') > 0 && $shipment_price >= $this->getConfigData('freeShippingUpperLimit');
+        $freeShippingUpperLimit = $this->getConfigData('freeShippingUpperLimit');
+        $isFreeShipping = $freeShippingUpperLimit > 0 && $shipment_price >= $freeShippingUpperLimit;
 
-        if (
-            $this->getConfigData('fallbackActive') &&
+        if ($this->getConfigData('fallbackActive') &&
             ($ratesResponse['code'] !== 200 || !count($ratesResponse['body']['quotes']))
         ) {
             $methodPrice = 0;
@@ -78,7 +109,7 @@ class Custom extends AbstractCarrier implements CarrierInterface
             return $result;
         }
 
-        foreach ($ratesResponse['body']['quotes'] as $rateKey=>$rateData) {
+        foreach ($ratesResponse['body']['quotes'] as $rateKey => $rateData) {
             $result->append($this->_appendMethod([
                 'method_code' => $rateKey,
                 'title' => $rateData['carrierName'],
@@ -90,6 +121,12 @@ class Custom extends AbstractCarrier implements CarrierInterface
         return $result;
     }
 
+    /**
+     * Append available methods to factory
+     *
+     * @param array $data
+     * @return mixed
+     */
     private function _appendMethod($data)
     {
         $method = $this->_rateMethodFactory->create();
@@ -106,6 +143,13 @@ class Custom extends AbstractCarrier implements CarrierInterface
         return $method;
     }
 
+    /**
+     * Returns the rates from API
+     *
+     * @param int|string $zipcode
+     * @param int|string $weightInGram
+     * @return array
+     */
     private function getRates($zipcode, $weightInGram)
     {
         try {
